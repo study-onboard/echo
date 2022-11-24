@@ -12,6 +12,7 @@ func init() {
 	group.GET("/world", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]any{
 			"message": "Hello World",
+			"times":   1024,
 		})
 	})
 }
