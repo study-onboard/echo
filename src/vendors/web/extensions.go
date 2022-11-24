@@ -3,6 +3,7 @@ package web
 import (
 	"net/http"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 )
 
@@ -56,4 +57,17 @@ func ErrorHandler(err error, c echo.Context) {
 			"message": apiErr.Message,
 		}, "  ")
 	}
+}
+
+// global validator
+type RequestValidator struct {
+	Provider *validator.Validate
+}
+
+func (validator *RequestValidator) Validate(target any) error {
+	if err := validator.Provider.Struct(target); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	return nil
 }
