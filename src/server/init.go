@@ -8,6 +8,7 @@ import (
 var Server *echo.Echo = echo.New()
 
 func init() {
+	Server.Debug = true
 	Server.Use(middleware.Logger())
 	Server.Use(middleware.Recover())
 }
