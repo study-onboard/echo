@@ -15,4 +15,8 @@ func init() {
 			"times":   1024,
 		})
 	})
+
+	group.GET("/error", func(c echo.Context) error {
+		return echo.NewHTTPError(401, "Show me the money and how do you turn this on?")
+	})
 }
