@@ -11,7 +11,7 @@ var formBinder = &echo.DefaultBinder{}
 // 1. header
 // 2. query
 // 3. body
-// 4. Path
+// 4. path
 func BindForm(c echo.Context, form any) error {
 	if err := formBinder.BindHeaders(c, form); err != nil {
 		return err
