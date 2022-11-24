@@ -1,6 +1,10 @@
 package web
 
-import "github.com/labstack/echo/v4"
+import (
+	"net/http"
+
+	"github.com/labstack/echo/v4"
+)
 
 // form binder
 var formBinder = &echo.DefaultBinder{}
@@ -30,4 +34,26 @@ func BindForm(c echo.Context, form any) error {
 	}
 
 	return nil
+}
+
+// api error
+type ApiError struct {
+	Code    int
+	Message string
+}
+
+func (err *ApiError) Error() string {
+	return err.Message
+}
+
+// error handler
+func ErrorHandler(err error, c echo.Context) {
+	if apiErr, ok := err.(*ApiError); !ok {
+		c.Echo().DefaultHTTPErrorHandler(err, c)
+	} else {
+		c.JSONPretty(http.StatusBadRequest, map[string]any{
+			"code":    apiErr.Code,
+			"message": apiErr.Message,
+		}, "  ")
+	}
 }
