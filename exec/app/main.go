@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	server.Server.Logger.Fatal(server.Server.Start(":9090"))
+	server.Server.Logger.Fatal(server.Server.Start(":9999"))
 }
